@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'brand',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -91,6 +92,11 @@ DATABASES = {
     }
 }
 
+# URL filters
+# https://www.django-rest-framework.org/api-guide/filtering/#filtering-against-the-current-user
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
