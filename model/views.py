@@ -1,15 +1,14 @@
 from rest_framework import viewsets, permissions
-from .serializers import BrandSerializer
-from .models import Brand
+from .serializers import ModelSerializer
+from .models import Model
 from django_filters import rest_framework as filters
 
 
-class BrandViewSet(viewsets.ModelViewSet):
-
-    queryset = Brand.objects.all().order_by('id')
-    serializer_class = BrandSerializer
+class ModelViewSet(viewsets.ModelViewSet):
+    queryset = Model.objects.all().order_by('id')
+    serializer_class = ModelSerializer
     # permission_classes = None # todo: change later
 
     # for filtering like /brands/?headquarters_country=Germany&brand_name=BMW
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('brand_name', 'headquarters_country')
+    filterset_fields = ('model_name', 'issue_year', 'body_style')
