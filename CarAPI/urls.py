@@ -18,10 +18,12 @@ from django.urls import path, include
 from rest_framework import routers
 from brand.views import BrandViewSet
 from model.views import ModelViewSet
+from car.views import CarViewSet
 
 router = routers.DefaultRouter()
 router.register(r'brands', BrandViewSet)
 router.register(r'models', ModelViewSet)
+router.register(r'cars', CarViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
