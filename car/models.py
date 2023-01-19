@@ -1,7 +1,7 @@
 from django.db import models
 from brand.models import Brand
 from model.models import Model
-
+from .validators import validate_nonnegative
 
 TRANSMISSION_OPTIONS = (
     ('Manual', 'Manual'),
@@ -14,8 +14,8 @@ TRANSMISSION_OPTIONS = (
 class Car(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     model = models.ForeignKey(Model, on_delete=models.CASCADE)
-    price = models.IntegerField()
-    milage = models.IntegerField()
+    price = models.IntegerField(validators=[validate_nonnegative])
+    milage = models.IntegerField(validators=[validate_nonnegative])
     exterior_color = models.CharField(max_length=30)
     interior_color = models.CharField(max_length=30)
     fuel_type = models.CharField(max_length=30)
