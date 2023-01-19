@@ -18,11 +18,12 @@ from django.urls import path, include
 from rest_framework import routers
 from brand.views import BrandViewSet
 from model.views import ModelViewSet
-from car.views import CarViewSet
+from car.views import CarViewSet, CarAllViewSet
 
 router = routers.DefaultRouter()
 router.register(r'brands', BrandViewSet)
 router.register(r'models', ModelViewSet)
+router.register(r'cars/all', CarAllViewSet)
 router.register(r'cars', CarViewSet)
 
 urlpatterns = [
