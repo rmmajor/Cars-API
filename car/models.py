@@ -28,3 +28,5 @@ class Car(models.Model):
 
     class Meta:
         ordering = ['price']
+        verbose_name = "car"
+        verbose_name_plural = "cars"
