@@ -19,15 +19,23 @@ from rest_framework import routers
 from brand.views import BrandViewSet
 from model.views import ModelViewSet
 from car.views import CarViewSet, CarAllViewSet
+from user.views import UserView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 router = routers.DefaultRouter()
 router.register(r'brands', BrandViewSet)
 router.register(r'models', ModelViewSet)
 router.register(r'cars/all', CarAllViewSet)
 router.register(r'cars', CarViewSet)
+router.register(r'user', UserView, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-user/', include('rest_framework.urls', namespace='rest_framework')),
+    path('user/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('user/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

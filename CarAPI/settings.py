@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'brand',
     'model',
     'car',
+    'user',
     'rest_framework',
     'django_filters',
 ]
@@ -97,7 +98,13 @@ DATABASES = {
 # URL filters
 # https://www.django-rest-framework.org/api-guide/filtering/#filtering-against-the-current-user
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 # Password validation
