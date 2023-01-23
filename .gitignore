@@ -4,3 +4,4 @@ venv/
 CarAPI/.env
 */__pycache__/
 *.pyc
+.coverage
