@@ -82,3 +82,27 @@ class TestLoginUser:
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert response.data['password'] == expected_response
+
+
+@pytest.mark.django_db
+class TestLoginAdmin:
+
+    @pytest.fixture(autouse=True)
+    def initialize(self):
+
+        self.admin = UserFactory.create(is_superuser=True)
+        self.admin.set_password('defaultpassword')
+        self.admin.save()
+
+        self.login_url = 'http://127.0.0.1:8000/user/login/'
+        self.login_request = {
+            'username': self.admin.username,
+            'password': 'defaultpassword'
+        }
+
+    def test_admin_login_success(self, client):
+        response = client.post(self.login_url, self.login_request)
+
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data['access']
+        assert response.data['refresh']

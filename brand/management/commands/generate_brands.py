@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 from faker_vehicle import VehicleProvider
 from brand.models import Brand
+from brand.factories import BrandFactory
 
 """
 This file implements manage.py console command: 
@@ -22,25 +23,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         count = options['count'][0]
-        generate_fake_brand_records(count)
-
-        return self.stdout.write("test")
-
-
-def generate_fake_brand_records(count):
-    fake = Faker()
-    Faker.seed(123)
-    fake.add_provider(VehicleProvider)
-
-    for _ in range(count):
-        brand_name = fake.vehicle_make()
-        headquarters_country = fake.country()
-        insert_fake_brand_record(brand_name, headquarters_country)
-        print(_, brand_name, headquarters_country)  # temp line
-
-
-def insert_fake_brand_record(brand_name, headquarters_country):
-    brand = Brand()
-    brand.brand_name = brand_name
-    brand.headquarters_country = headquarters_country
-    brand.save()
+        brand_records = BrandFactory.create_batch(count)
+        return self.stdout.write("done")
