@@ -1,7 +1,4 @@
 from django.core.management.base import BaseCommand
-from faker import Faker
-from faker_vehicle import VehicleProvider
-from brand.models import Brand
 from brand.factories import BrandFactory
 
 """

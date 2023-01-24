@@ -44,10 +44,19 @@ class TestBrandGet:
     # does not work
     def test_get_brand_detail_success(self, client):
         brand_records = self._generate_brands(5)
-        brand_id = 1
-        response = self.client.get(f'http://127.0.0.1:8000/brands/{brand_id}')
-        print(response)
+        brand_id = 2
+        url = reverse("brand-detail", args=(brand_id,))
+        response = self.client.get(url)
+        print(response.data)
+
         assert response.status_code == status.HTTP_200_OK
+
+    def test_get_non_existing_instance_detail(self, client):
+        brand_id = 1
+        url = reverse("brand-detail", args=(brand_id,))
+        response = self.client.get(url)
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
 
     def test_get_brands_empty_set(self, client):
         response = self.client.get(self.url)
@@ -84,4 +93,8 @@ class TestBrandGet:
 
 
 class TestBrandCRUDbyAdmin:
-    pass
+
+    @pytest.fixture(autouse=True)
+    def initialize(self):
+
+        self.url = 'http://127.0.0.1:8000/brands/'

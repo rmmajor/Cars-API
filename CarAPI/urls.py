@@ -26,10 +26,10 @@ from rest_framework_simplejwt.views import (
 )
 
 router = routers.DefaultRouter()
-router.register(r'brands', BrandViewSet)
-router.register(r'models', ModelViewSet)
-router.register(r'cars/all', CarAllViewSet)
-router.register(r'cars', CarViewSet)
+router.register(r'brands', BrandViewSet, basename='brand')
+router.register(r'models', ModelViewSet, basename='model')
+router.register(r'cars/all', CarAllViewSet, basename='car')
+router.register(r'cars', CarViewSet, basename='car')
 router.register(r'user', UserView, basename='user')
 
 urlpatterns = [

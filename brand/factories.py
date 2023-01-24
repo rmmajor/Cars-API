@@ -5,7 +5,6 @@ from factory.django import DjangoModelFactory
 import time
 from .models import *
 
-# todo refactor this
 fake = Faker()
 Faker.seed(time.time() * 1000)
 fake.add_provider(VehicleProvider)
