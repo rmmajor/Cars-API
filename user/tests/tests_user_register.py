@@ -1,6 +1,8 @@
 import pytest
 from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
+from .factories import *
+import factory
 
 
 # Create your tests here.
@@ -10,10 +12,11 @@ class TestRegisterUser:
     @pytest.fixture(autouse=True)
     def initialize(self):
         self.good_registration_credentials = dict(
-                username="testUserName",
-                email="testUserName@mail.test",
-                password="testUserName",
-                confirmed_password="testUserName")
+            username="testUserName",
+            email="testUserName@mail.test",
+            password="testUserName",
+            confirmed_password="testUserName"
+        )
 
         self.registration_url = 'http://127.0.0.1:8000/user/create/'
 
