@@ -7,12 +7,14 @@ from rest_framework.exceptions import ErrorDetail
 @pytest.mark.django_db
 class TestLoginUser:
 
-    @pytest.fixture(autouse=True)
-    def initialize(self):
-
+    def _register_user(self):
         self.user = UserFactory.create()
         self.user.set_password('defaultpassword')
         self.user.save()
+
+    @pytest.fixture(autouse=True)
+    def initialize(self):
+        self._register_user()
 
         self.login_url = 'http://127.0.0.1:8000/user/login/'
         self.login_request = {
@@ -87,12 +89,14 @@ class TestLoginUser:
 @pytest.mark.django_db
 class TestLoginAdmin:
 
-    @pytest.fixture(autouse=True)
-    def initialize(self):
-
+    def _register_admin(self):
         self.admin = UserFactory.create(is_superuser=True)
         self.admin.set_password('defaultpassword')
         self.admin.save()
+
+    @pytest.fixture(autouse=True)
+    def initialize(self):
+        self._register_admin()
 
         self.login_url = 'http://127.0.0.1:8000/user/login/'
         self.login_request = {
