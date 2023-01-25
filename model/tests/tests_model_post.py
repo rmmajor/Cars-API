@@ -8,19 +8,20 @@ from rest_framework.test import APIClient
 
 @pytest.mark.django_db
 class TestModelPOSTbyAdmin:
-
     def _register_admin(self):
         self.admin = UserFactory.create(is_superuser=True)
-        self.admin.set_password('password')
+        self.admin.set_password("password")
         self.admin.save()
 
         self.username = self.admin.username
-        self.password = 'password'
+        self.password = "password"
 
         return RefreshToken.for_user(self.admin)
 
     def _login(self, refresh_token):
-        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh_token.access_token}')
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f"Bearer {refresh_token.access_token}"
+        )
         self.client.login(username=self.username, password=self.password)
 
     @pytest.fixture(autouse=True)
@@ -28,7 +29,7 @@ class TestModelPOSTbyAdmin:
         self.client = APIClient()
         admin_token = self._register_admin()
         self._login(admin_token)
-        self.model_list_url = 'http://127.0.0.1:8000/models/'
+        self.model_list_url = "http://127.0.0.1:8000/models/"
         self.model_to_post = factory.build(dict, FACTORY_CLASS=ModelFactory)
         self.model_records = ModelFactory.create_batch(5)
 
@@ -38,58 +39,56 @@ class TestModelPOSTbyAdmin:
 
     def test_post_without_model_name(self):
         bad_model = self.model_to_post
-        bad_model.pop('model_name')
+        bad_model.pop("model_name")
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_without_issue_year(self):
         bad_model = self.model_to_post
-        bad_model.pop('issue_year')
+        bad_model.pop("issue_year")
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_without_body_style(self):
         bad_model = self.model_to_post
-        bad_model.pop('body_style')
+        bad_model.pop("body_style")
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_with_empty_model_name(self):
         bad_model = self.model_to_post
-        bad_model['model_name'] = ''
+        bad_model["model_name"] = ""
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_with_empty_issue_year(self):
         bad_model = self.model_to_post
-        bad_model['issue_year'] = ''
+        bad_model["issue_year"] = ""
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_with_empty_body_style(self):
         bad_model = self.model_to_post
-        bad_model['body_style'] = ''
+        bad_model["body_style"] = ""
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_with_future_year(self):
         bad_model = self.model_to_post
-        bad_model['issue_year'] = 2030
+        bad_model["issue_year"] = 2030
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_with_too_small_year(self):
         bad_model = self.model_to_post
-        bad_model['issue_year'] = 988
+        bad_model["issue_year"] = 988
         response = self.client.post(self.model_list_url, bad_model)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-

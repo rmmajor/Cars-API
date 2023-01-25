@@ -10,8 +10,6 @@ make this file
 
 
 class BrandFilter(filters.FilterSet):
-
     class Meta:
         model = Brand
-        fields = ['brand_name', 'headquarters_country']
-
+        fields = ["brand_name", "headquarters_country"]

@@ -9,8 +9,7 @@ class UserFactory(DjangoModelFactory):
 
     username = "testtest"
     email = "testtest@mail.test"
-    password = factory.PostGenerationMethodCall('set_password',
-                                                'defaultpassword')
+    password = factory.PostGenerationMethodCall("set_password", "defaultpassword")
     is_active = True
     is_superuser = False
     is_staff = False

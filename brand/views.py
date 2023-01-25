@@ -7,10 +7,10 @@ from Core.acces_policy import DefaultAccessPolicy
 
 class BrandViewSet(viewsets.ModelViewSet):
 
-    queryset = Brand.objects.all().order_by('id')
+    queryset = Brand.objects.all().order_by("id")
     serializer_class = BrandSerializer
     permission_classes = [DefaultAccessPolicy]
 
     # for filtering like /brands/?headquarters_country=Germany&brand_name=BMW
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('brand_name', 'headquarters_country')
+    filterset_fields = ("brand_name", "headquarters_country")

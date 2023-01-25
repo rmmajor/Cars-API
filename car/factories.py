@@ -7,20 +7,18 @@ import time
 from .models import *
 
 fuel_type_provider = DynamicProvider(
-     provider_name="fuel_type",
-     elements=['Gasoline', 'Diesel Fuel', 'Bio-diesel', 'Ethanol', 'Electric']
+    provider_name="fuel_type",
+    elements=["Gasoline", "Diesel Fuel", "Bio-diesel", "Ethanol", "Electric"],
 )
 
 
 transmission_provider = DynamicProvider(
-     provider_name="transmission",
-     elements=['Manual', 'Automatic', 'CVT']
+    provider_name="transmission", elements=["Manual", "Automatic", "CVT"]
 )
 
 
 engine_provider = DynamicProvider(
-     provider_name="engine",
-     elements=['2.0L', '1.4L', '3.0L', '5.0L']
+    provider_name="engine", elements=["2.0L", "1.4L", "3.0L", "5.0L"]
 )
 
 fake = Faker()
@@ -34,7 +32,6 @@ fake.add_provider(engine_provider)
 
 
 class CarFactory(DjangoModelFactory):
-
     class Meta:
         model = Car
 

@@ -10,6 +10,6 @@ class Brand(models.Model):
         return self.brand_name
 
     class Meta:
-        ordering = ['brand_name']
+        ordering = ["brand_name"]
         verbose_name = "brand"
         verbose_name_plural = "brands"

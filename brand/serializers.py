@@ -5,4 +5,4 @@ from .models import Brand
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ['id', 'brand_name', 'headquarters_country']
+        fields = ["id", "brand_name", "headquarters_country"]

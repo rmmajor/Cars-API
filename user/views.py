@@ -14,14 +14,19 @@ class UserView(GenericViewSet):
     serializer_class = RegistrationSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 
-    @action(methods=['post'], url_path="create", detail=False, permission_classes=[AllowAny])
+    @action(
+        methods=["post"], url_path="create", detail=False, permission_classes=[AllowAny]
+    )
     def registration(self, request: Request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         refresh = RefreshToken.for_user(user)
 
-        return Response({
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        }, status=status.HTTP_201_CREATED)
+        return Response(
+            {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            },
+            status=status.HTTP_201_CREATED,
+        )

@@ -7,17 +7,21 @@ import model.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('model', '0001_initial'),
+        ("model", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='model',
-            options={'ordering': ['model_name'], 'verbose_name': 'model', 'verbose_name_plural': 'models'},
+            name="model",
+            options={
+                "ordering": ["model_name"],
+                "verbose_name": "model",
+                "verbose_name_plural": "models",
+            },
         ),
         migrations.AlterField(
-            model_name='model',
-            name='issue_year',
+            model_name="model",
+            name="issue_year",
             field=models.IntegerField(validators=[model.validators.validate_year]),
         ),
     ]

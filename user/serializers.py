@@ -7,8 +7,7 @@ from rest_framework.validators import UniqueValidator
 class RegistrationSerializer(serializers.ModelSerializer):
     confirmed_password = serializers.CharField()
     email = serializers.EmailField(
-        required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())]
+        required=True, validators=[UniqueValidator(queryset=User.objects.all())]
     )
 
     class Meta:

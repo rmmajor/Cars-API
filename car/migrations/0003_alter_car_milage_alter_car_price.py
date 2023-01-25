@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('car', '0002_alter_car_options'),
+        ("car", "0002_alter_car_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='car',
-            name='milage',
+            model_name="car",
+            name="milage",
             field=models.IntegerField(validators=[car.validators.validate_nonnegative]),
         ),
         migrations.AlterField(
-            model_name='car',
-            name='price',
+            model_name="car",
+            name="price",
             field=models.IntegerField(validators=[car.validators.validate_nonnegative]),
         ),
     ]

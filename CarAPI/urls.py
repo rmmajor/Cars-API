@@ -26,16 +26,16 @@ from rest_framework_simplejwt.views import (
 )
 
 router = routers.DefaultRouter()
-router.register(r'brands', BrandViewSet, basename='brand')
-router.register(r'models', ModelViewSet, basename='model')
-router.register(r'cars/all', CarAllViewSet, basename='car')
-router.register(r'cars', CarViewSet, basename='car')
-router.register(r'user', UserView, basename='user')
+router.register(r"brands", BrandViewSet, basename="brand")
+router.register(r"models", ModelViewSet, basename="model")
+router.register(r"cars/all", CarAllViewSet, basename="car")
+router.register(r"cars", CarViewSet, basename="car")
+router.register(r"user", UserView, basename="user")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(router.urls)),
-    path('api-user/', include('rest_framework.urls', namespace='rest_framework')),
-    path('user/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('user/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("admin/", admin.site.urls),
+    path("", include(router.urls)),
+    path("api-user/", include("rest_framework.urls", namespace="rest_framework")),
+    path("user/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("user/login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

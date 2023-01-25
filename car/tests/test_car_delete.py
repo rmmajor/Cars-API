@@ -12,19 +12,20 @@ from rest_framework.test import APIClient
 
 @pytest.mark.django_db
 class TestBrandDELETEbyAdmin:
-
     def _register_admin(self):
         self.admin = UserFactory.create(is_superuser=True)
-        self.admin.set_password('password')
+        self.admin.set_password("password")
         self.admin.save()
 
         self.username = self.admin.username
-        self.password = 'password'
+        self.password = "password"
 
         return RefreshToken.for_user(self.admin)
 
     def _login(self, refresh_token):
-        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh_token.access_token}')
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f"Bearer {refresh_token.access_token}"
+        )
         self.client.login(username=self.username, password=self.password)
 
     @pytest.fixture(autouse=True)
@@ -32,15 +33,17 @@ class TestBrandDELETEbyAdmin:
         self.client = APIClient()
         admin_token = self._register_admin()
         self._login(admin_token)
-        self.car_detail_url = 'http://127.0.0.1:8000/cars/1/'
+        self.car_detail_url = "http://127.0.0.1:8000/cars/1/"
 
         self.brands_records = BrandFactory.create_batch(5)
         self.models_records = ModelFactory.create_batch(5)
 
-        self.car_to_delete = CarFactory.create_batch(5,
-                                                     brand=self.brands_records[0],
-                                                     model=self.models_records[0],
-                                                     is_on_sale=True)
+        self.car_to_delete = CarFactory.create_batch(
+            5,
+            brand=self.brands_records[0],
+            model=self.models_records[0],
+            is_on_sale=True,
+        )
 
     def test_delete_car_success(self):
         delete_response = self.client.delete(self.car_detail_url)

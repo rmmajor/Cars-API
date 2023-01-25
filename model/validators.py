@@ -6,6 +6,6 @@ import datetime
 def validate_year(value):
     if value < 1886 or value > datetime.date.today().year:
         raise ValidationError(
-            _('%(value)s is not a proper year'),
-            params={'value': value},
+            _("%(value)s is not a proper year"),
+            params={"value": value},
         )

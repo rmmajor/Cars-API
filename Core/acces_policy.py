@@ -7,11 +7,11 @@ class DefaultAccessPolicy(AccessPolicy):
         {
             "action": ["list", "retrieve"],
             "principal": "authenticated",
-            "effect": "allow"
+            "effect": "allow",
         },
         {
             "action": ["create", "destroy", "update", "partial_update"],
             "principal": "admin",
-            "effect": "allow"
-        }
+            "effect": "allow",
+        },
     ]

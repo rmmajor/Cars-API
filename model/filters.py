@@ -4,8 +4,8 @@ from .models import Model
 
 
 class ModelFilter(filters.FilterSet):
-    year = RangeFilter(field_name='issue_year')
+    year = RangeFilter(field_name="issue_year")
 
     class Meta:
         model = Model
-        fields = ['issue_year', "model_name", "body_style"]
+        fields = ["issue_year", "model_name", "body_style"]

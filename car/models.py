@@ -4,9 +4,9 @@ from model.models import Model
 from .validators import validate_nonnegative
 
 TRANSMISSION_OPTIONS = (
-    ('Manual', 'Manual'),
-    ('Automatic', 'Automatic'),
-    ('CVT', 'CVT')
+    ("Manual", "Manual"),
+    ("Automatic", "Automatic"),
+    ("CVT", "CVT"),
 )
 
 
@@ -19,7 +19,9 @@ class Car(models.Model):
     exterior_color = models.CharField(max_length=30)
     interior_color = models.CharField(max_length=30)
     fuel_type = models.CharField(max_length=30)
-    transmission = models.CharField(choices=TRANSMISSION_OPTIONS, default='Manual', max_length=100)
+    transmission = models.CharField(
+        choices=TRANSMISSION_OPTIONS, default="Manual", max_length=100
+    )
     engine = models.CharField(max_length=10)
     is_on_sale = models.BooleanField()
 
@@ -27,6 +29,6 @@ class Car(models.Model):
         return "%s %s" % (self.brand.brand_name, self.model.model_name)
 
     class Meta:
-        ordering = ['price']
+        ordering = ["price"]
         verbose_name = "car"
         verbose_name_plural = "cars"

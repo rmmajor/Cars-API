@@ -12,6 +12,6 @@ class Model(models.Model):
         return self.model_name
 
     class Meta:
-        ordering = ['model_name']
+        ordering = ["model_name"]
         verbose_name = "model"
         verbose_name_plural = "models"
