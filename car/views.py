@@ -11,7 +11,7 @@ class CarAllViewSet(viewsets.ModelViewSet):
 
     queryset = Car.objects.all().order_by('id')
     serializer_class = CarSerializer
-    # permission_classes = [DefaultAccessPolicy]
+    permission_classes = [DefaultAccessPolicy]
 
     # for filtering like /brands/?headquarters_country=Germany&brand_name=BMW
     filter_backends = (filters.DjangoFilterBackend,)
@@ -26,7 +26,7 @@ class CarViewSet(viewsets.ModelViewSet):
 
     queryset = Car.objects.filter(is_on_sale=True).order_by('id')
     serializer_class = CarSerializer
-    # permission_classes = [DefaultAccessPolicy]
+    permission_classes = [DefaultAccessPolicy]
 
     # for filtering like /brands/?headquarters_country=Germany&brand_name=BMW
     filter_backends = (filters.DjangoFilterBackend,)
