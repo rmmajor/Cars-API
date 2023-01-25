@@ -1,4 +1,5 @@
 import pytest
+from rest_framework.exceptions import ErrorDetail
 from rest_framework_simplejwt.tokens import RefreshToken
 from ..factories import *
 from user.tests.factories import *
@@ -42,33 +43,19 @@ class TestBrandPUTbyAdmin:
 
         response = self.client.put(self.brand_detail_url, self.brand_to_put)
         assert response.status_code == status.HTTP_200_OK
+        
+    def test_put_without_fields(self):
+        for key, value in self.brand_to_put.items():
+            bad_brand = self.brand_to_put.copy()
+            bad_brand.pop(key)
+            response = self.client.put(self.brand_detail_url, bad_brand)
 
-    def test_put_without_brand_name(self):
-        BrandFactory.create_batch(5)
-        bad_brand = self.brand_to_put
-        bad_brand.pop("brand_name")
-        response = self.client.put(self.brand_detail_url, bad_brand)
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-        assert response.data == False
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+    def test_put_with_empty_fields(self):
+        for key, value in self.brand_to_put.items():
+            bad_brand = self.brand_to_put.copy()
+            bad_brand[key] = ""
+            response = self.client.put(self.brand_detail_url, bad_brand)
 
-    def test_put_without_headquarters_country(self):
-        bad_brand = self.brand_to_put
-        bad_brand.pop("headquarters_country")
-        response = self.client.put(self.brand_detail_url, bad_brand)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_put_with_empty_brand_name(self):
-        bad_brand = self.brand_to_put
-        bad_brand["brand_name"] = ""
-        response = self.client.put(self.brand_detail_url, bad_brand)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_put_with_empty_headquarters_country(self):
-        bad_brand = self.brand_to_put
-        bad_brand["headquarters_country"] = ""
-        response = self.client.put(self.brand_detail_url, bad_brand)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            assert response.status_code == status.HTTP_400_BAD_REQUEST

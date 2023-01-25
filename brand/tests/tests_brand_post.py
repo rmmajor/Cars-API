@@ -1,4 +1,5 @@
 import pytest
+from rest_framework.exceptions import ErrorDetail
 from rest_framework_simplejwt.tokens import RefreshToken
 from ..factories import *
 from user.tests.factories import *
@@ -37,30 +38,21 @@ class TestBrandPOSTbyAdmin:
         response = self.client.post(self.brand_list_url, self.brand_to_post)
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_post_without_brand_name(self):
-        bad_brand = self.brand_to_post
-        bad_brand.pop("brand_name")
-        response = self.client.post(self.brand_list_url, bad_brand)
+    def test_post_without_fields(self):
+        for key, value in self.brand_to_post.items():
+            bad_brand = self.brand_to_post.copy()
+            bad_brand.pop(key)
+            response = self.client.post(self.brand_list_url, bad_brand)
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            assert response.data[key] == [ErrorDetail(string='This field is required.', code='required')]
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_post_without_headquarters_country(self):
-        bad_brand = self.brand_to_post
-        bad_brand.pop("headquarters_country")
-        response = self.client.post(self.brand_list_url, bad_brand)
+    def test_post_with_empty_fields(self):
+        for key, value in self.brand_to_post.items():
+            bad_brand = self.brand_to_post.copy()
+            bad_brand[key] = ""
+            response = self.client.post(self.brand_list_url, bad_brand)
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            assert [ErrorDetail(string='This field may not be blank.', code='blank')]
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_post_with_empty_brand_name(self):
-        bad_brand = self.brand_to_post
-        bad_brand["brand_name"] = ""
-        response = self.client.post(self.brand_list_url, bad_brand)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_post_with_empty_headquarters_country(self):
-        bad_brand = self.brand_to_post
-        bad_brand["headquarters_country"] = ""
-        response = self.client.post(self.brand_list_url, bad_brand)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST

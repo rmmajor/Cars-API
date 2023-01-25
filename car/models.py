@@ -20,7 +20,7 @@ class Car(models.Model):
     interior_color = models.CharField(max_length=30)
     fuel_type = models.CharField(max_length=30)
     transmission = models.CharField(
-        choices=TRANSMISSION_OPTIONS, default="Manual", max_length=100
+        choices=TRANSMISSION_OPTIONS, default="Manual", max_length=100, 
     )
     engine = models.CharField(max_length=10)
     is_on_sale = models.BooleanField()

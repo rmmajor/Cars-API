@@ -1,4 +1,5 @@
 import pytest
+from rest_framework.exceptions import ErrorDetail
 from rest_framework_simplejwt.tokens import RefreshToken
 from ..factories import *
 from user.tests.factories import *
@@ -37,47 +38,22 @@ class TestModelPOSTbyAdmin:
         response = self.client.post(self.model_list_url, self.model_to_post)
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_post_without_model_name(self):
-        bad_model = self.model_to_post
-        bad_model.pop("model_name")
-        response = self.client.post(self.model_list_url, bad_model)
+    def test_post_without_fields(self):
+        for key, value in self.model_to_post.items():
+            bad_model = self.model_to_post.copy()
+            bad_model.pop(key)
+            response = self.client.post(self.model_list_url, bad_model)
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            assert response.data[key] == [ErrorDetail(string='This field is required.', code='required')]
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_post_without_issue_year(self):
-        bad_model = self.model_to_post
-        bad_model.pop("issue_year")
-        response = self.client.post(self.model_list_url, bad_model)
+    def test_post_with_empty_fields(self):
+        for key, value in self.model_to_post.items():
+            bad_model = self.model_to_post.copy()
+            bad_model[key] = ""
+            response = self.client.post(self.model_list_url, bad_model)
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_post_without_body_style(self):
-        bad_model = self.model_to_post
-        bad_model.pop("body_style")
-        response = self.client.post(self.model_list_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_post_with_empty_model_name(self):
-        bad_model = self.model_to_post
-        bad_model["model_name"] = ""
-        response = self.client.post(self.model_list_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_post_with_empty_issue_year(self):
-        bad_model = self.model_to_post
-        bad_model["issue_year"] = ""
-        response = self.client.post(self.model_list_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_post_with_empty_body_style(self):
-        bad_model = self.model_to_post
-        bad_model["body_style"] = ""
-        response = self.client.post(self.model_list_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_with_future_year(self):
         bad_model = self.model_to_post

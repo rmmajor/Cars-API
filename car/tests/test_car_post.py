@@ -1,4 +1,5 @@
 import pytest
+from rest_framework.exceptions import ErrorDetail
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from brand.factories import BrandFactory
@@ -45,33 +46,29 @@ class TestCarPOSTbyAdmin:
             "fuel_type": "gas",
             "transmission": "Manual",
             "engine": "2.0L",
-            "is_on_sale": False,
+            "is_on_sale": True,
         }
 
     def test_post_success(self):
         response = self.client.post(self.car_list_url, self.car_to_post)
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_post_without_brand(self):
-        bad_car = self.car_to_post
-        bad_car.pop("brand")
-        response = self.client.post(self.car_list_url, bad_car)
+    def test_post_without_fields(self):
+        """
+        Checking if each field is required.
+        Fields that can be dropped from the request are transmission (because it has
+        default value 'Manual') and is_on_sale (because bool default value is False)
+        """
+        for key, value in self.car_to_post.items():
+            bad_car = self.car_to_post.copy()
+            bad_car.pop(key)
+            response = self.client.post(self.car_list_url, bad_car)
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_post_without_model(self):
-        bad_car = self.car_to_post
-        bad_car.pop("model")
-        response = self.client.post(self.car_list_url, bad_car)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_post_without_price(self):
-        bad_car = self.car_to_post
-        bad_car.pop("price")
-        response = self.client.post(self.car_list_url, bad_car)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            if key == 'transmission' or key == 'is_on_sale':
+                assert response.status_code == status.HTTP_201_CREATED
+            else:
+                assert response.data[key] == [ErrorDetail(string='This field is required.', code='required')]
+                assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_post_with_empty_transmission(self):
         bad_car = self.car_to_post

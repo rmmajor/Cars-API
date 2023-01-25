@@ -43,50 +43,23 @@ class TestModelPUTbyAdmin:
         response = self.client.put(self.model_detail_url, self.model_to_put)
         assert response.status_code == status.HTTP_200_OK
 
-    def test_put_without_model_name(self):
-        ModelFactory.create_batch(5)
-        bad_model = self.model_to_put
-        bad_model.pop("model_name")
-        response = self.client.put(self.model_detail_url, bad_model)
+    def test_put_without_fields(self):
+        for key, value in self.model_to_put.items():
+            bad_model = self.model_to_put.copy()
+            bad_model.pop(key)
+            response = self.client.put(self.model_detail_url, bad_model)
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_put_without_issue_year(self):
-        bad_model = self.model_to_put
-        bad_model.pop("issue_year")
-        response = self.client.put(self.model_detail_url, bad_model)
+    def test_put_with_empty_fields(self):
+        for key, value in self.model_to_put.items():
+            bad_model = self.model_to_put.copy()
+            bad_model[key] = ""
+            response = self.client.put(self.model_detail_url, bad_model)
 
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_put_without_body_style(self):
-        bad_model = self.model_to_put
-        bad_model.pop("body_style")
-        response = self.client.put(self.model_detail_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_put_with_empty_model_name(self):
-        bad_model = self.model_to_put
-        bad_model["model_name"] = ""
-        response = self.client.put(self.model_detail_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_put_with_empty_issue_year(self):
-        bad_model = self.model_to_put
-        bad_model["issue_year"] = ""
-        response = self.client.put(self.model_detail_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_put_with_empty_body_style(self):
-        bad_model = self.model_to_put
-        bad_model["body_style"] = ""
-        response = self.client.put(self.model_detail_url, bad_model)
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_put_with_empty_future_year(self):
+    def test_put_with_future_year(self):
         bad_model = self.model_to_put
         bad_model["issue_year"] = 2030
         response = self.client.put(self.model_detail_url, bad_model)
