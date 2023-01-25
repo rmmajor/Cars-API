@@ -11,4 +11,6 @@ class CarYearFilter(filters.FilterSet):
 
     class Meta:
         model = Car
-        fields = ['model__issue_year']
+        fields = ['model__issue_year', 'id', 'brand', 'model', 'price', 'milage',
+                  'exterior_color', 'interior_color', 'fuel_type',
+                  'transmission', 'engine', 'is_on_sale']
