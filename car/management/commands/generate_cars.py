@@ -4,7 +4,7 @@ from faker_vehicle import VehicleProvider
 from car.models import Car
 from brand.models import Brand
 from model.models import Model
-from django.db import models
+from car.factories import CarFactory
 import random
 
 """
@@ -30,9 +30,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         count = options['count'][0]
-        generate_fake_model_records(count)
+        # generate_fake_model_records(count)
 
-        return self.stdout.write("test")
+        car_records = CarFactory.create_batch(count)
+        return self.stdout.write("done")
 
 
 def generate_fake_model_records(count):
