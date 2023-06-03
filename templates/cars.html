@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <link rel="stylesheet" href="style_test.css">
+</head>
+<body>
+    <header>
+      <div class="header-top">
+        <a href="#" class="header-logo">
+          CarAPI
+        </a>
+        <div class="header-right">
+          <a href="#" class="profile-link">John Doe</a>
+          <button class="logout-button">Log out</button>
+          <button class="menu-toggle-button">&#9776;</button>
+        </div>
+      </div>
+      <div class="header-bottom">
+        <span>Search by: </span>
+        <div class="tabs">
+          <button class="tab-button active">Brand</button>
+          <button class="tab-button">Model</button>
+          <button class="tab-button">Car</button>
+        </div>
+      </div>
+    </header>
+
+    <h1>Cars Filter</h1>
+    <form>
+        <label for="brand-filter">Brand:</label>
+        <select id="brand-filter">
+            <option value="">All</option>
+            <option value="1">Brand 1</option>
+            <option value="2">Brand 2</option>
+            <option value="3">Brand 3</option>
+            <!-- Add more brand options here -->
+        </select><br>
+
+        <label for="model-filter">Model:</label>
+        <select id="model-filter">
+            <option value="">All</option>
+            <option value="1">Model 1</option>
+            <option value="2">Model 2</option>
+            <option value="3">Model 3</option>
+            <!-- Add more model options here -->
+        </select><br>
+
+        <label for="price-filter">Price:</label>
+        <input type="number" id="price-filter" name="price-filter" placeholder="Enter maximum price"><br>
+
+        <label for="mileage-filter">Mileage:</label>
+        <input type="number" id="mileage-filter" name="mileage-filter" placeholder="Enter maximum mileage"><br>
+
+        <label for="exterior-color-filter">Exterior Color:</label>
+        <input type="text" id="exterior-color-filter" name="exterior-color-filter" placeholder="Enter exterior color"><br>
+
+        <label for="interior-color-filter">Interior Color:</label>
+        <input type="text" id="interior-color-filter" name="interior-color-filter" placeholder="Enter interior color"><br>
+
+        <label for="fuel-type-filter">Fuel Type:</label>
+        <input type="text" id="fuel-type-filter" name="fuel-type-filter" placeholder="Enter fuel type"><br>
+
+        <label for="transmission-filter">Transmission:</label>
+        <select id="transmission-filter">
+            <option value="">All</option>
+            <option value="Automatic">Automatic</option>
+            <option value="Manual">Manual</option>
+            <option value="Semi-automatic">Semi-automatic</option>
+            <!-- Add more transmission options here -->
+        </select><br>
+
+        <label for="engine-filter">Engine:</label>
+        <input type="text" id="engine-filter" name="engine-filter" placeholder="Enter engine"><br>
+
+        <label for="is-on-sale-filter">On Sale:</label>
+        <input type="checkbox" id="is-on-sale-filter" name="is-on-sale-filter"><br>
+
+        <div class="button-container">
+            <button type="button" class="cancel">Reset</button>
+            <button type="button" class="register" onclick="filterCars()">Apply Filter</button>
+        </div>
+    </form>
+
+    <div class="instance-details" id="car-details-1">
+        <p>Brand: Skoda</p>
+        <p>Model: Octavia</p>
+        <p>Price: 933223935</p>
+        <p>Mileage: 98324498</p>
+        <p>Exterior Color: black</p>
+        <p>Interior Color: white</p>
+        <p>Fuel Type: diesel</p>
+        <p>Transmission: Automatic</p>
+        <p>Engine: cool</p>
+        <p>On Sale: true</p>
+    </div>
+
+    <div class="instance-details" id="car-details-2">
+        <p>Brand: Skoda</p>
+        <p>Model: Octavia</p>
+        <p>Price: 933223935</p>
+        <p>Mileage: 98324498</p>
+        <p>Exterior Color: black</p>
+        <p>Interior Color: white</p>
+        <p>Fuel Type: diesel</p>
+        <p>Transmission: Automatic</p>
+        <p>Engine: cool</p>
+        <p>On Sale: true</p>
+    </div>
+
+</body>
+</html>

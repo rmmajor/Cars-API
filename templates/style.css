@@ -1,0 +1,250 @@
+/* Login and Register */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
+form {
+  width: 400px;
+  margin: 10% auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button.ok {
+  background-color: #4CAF50;
+}
+
+button.ok:hover {
+  background-color: #2e8634;
+}
+
+button.cancel {
+  background-color: #dc3545;
+}
+
+button.cancel:hover {
+  background-color: #c82333;
+}
+
+/* header */
+/* Header styles */
+header {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px;
+}
+
+/* Top level styles */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header-logo img {
+  margin-left: 10px;
+  height: 30px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.profile-link {
+  margin-right: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.logout-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-toggle-button {
+  display: none;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Bottom level styles */
+.header-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.tabs {
+  display: flex;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-weight: bold;
+  cursor: pointer;
+  transition: border-bottom-color 0.2s ease-in-out;
+}
+
+.tab-button.active,
+.tab-button:hover {
+  border-bottom-color: #fff;
+}
+
+/*Profile styles*/
+.profile {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.profile h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.profile form {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.profile label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.profile span {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.edit-profile-button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1e90ff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.edit-profile-button:hover {
+  background-color: #187bcd;
+}
+
+
+/* instances styles */
+.instance-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  margin: 20px 10%;
+}
+
+.instance-details p {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.instance-details:nth-child(even) {
+  background-color: #f9f9f9;
+}

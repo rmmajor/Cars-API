@@ -9,7 +9,7 @@ class BrandViewSet(viewsets.ModelViewSet):
 
     queryset = Brand.objects.all().order_by("id")
     serializer_class = BrandSerializer
-    permission_classes = [DefaultAccessPolicy]
+    # permission_classes = [DefaultAccessPolicy]
 
     # for filtering like /brands/?headquarters_country=Germany&brand_name=BMW
     filter_backends = (filters.DjangoFilterBackend,)
